@@ -852,6 +852,15 @@ class TimeZoneTest < ActiveSupport::TestCase
     assert_not_includes ActiveSupport::TimeZone.country_zones(:ru), ActiveSupport::TimeZone["Kuala Lumpur"]
   end
 
+  def test_countries_zones
+    zones = ActiveSupport::TimeZone.countries_zones("us", :ca)
+
+    assert_includes zones, ActiveSupport::TimeZone["Hawaii"]
+    assert_includes zones, ActiveSupport::TimeZone["Arizona"]
+    assert_includes zones, ActiveSupport::TimeZone["America/Vancouver"]
+    assert_not_includes zones, ActiveSupport::TimeZone["Tokyo"]
+  end
+
   def test_country_zones_with_and_without_mappings
     assert_includes ActiveSupport::TimeZone.country_zones("au"), ActiveSupport::TimeZone["Adelaide"]
     assert_includes ActiveSupport::TimeZone.country_zones("au"), ActiveSupport::TimeZone["Australia/Lord_Howe"]

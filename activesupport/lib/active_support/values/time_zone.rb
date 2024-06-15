@@ -262,6 +262,12 @@ module ActiveSupport
         @country_zones[code] ||= load_country_zones(code)
       end
 
+      # A convenience method for returning a collection of TimeZone objects
+      # for time zones in the countries specified by its ISO 3166-1 Alpha2 codes.
+      def countries_zones(*country_codes)
+        country_codes.map { country_zones(_1) }.flatten!
+      end
+
       def clear # :nodoc:
         @lazy_zones_map = Concurrent::Map.new
         @country_zones  = Concurrent::Map.new
